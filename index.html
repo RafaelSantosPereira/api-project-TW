@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TopCinema</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
+  <script src="./js/index.js" type="module" defer></script>
+</head>
+<body>
+  <!-- HEADER -->
+  <header class="header">
+        <a href="./index.html" class="logo">
+            <img src="./assets/images/logo.ico" width="40" height="40" alt="TopCinema menu-item" >
+        </a>
+                    <!-- search-->
+        <div class="search-box" search-box>
+             <div class="search-wrapper" search-wrapper>
+                <input type="text" name="search" placeholder="search"aria-label="search" class="search-field" id="search-bar" autocomplete="off">
+
+                <img src="assets/images/search.png" width="24" height="24" alt="search"class="leading-icon">
+                            
+            </div>
+                        
+            <button class="search-btn" id="search-btn"  search toggler menu-close>
+                <img src="assets/images/search.png" width="24" height="24"alt="open search box">
+             </button>                        
+        </div>
+            <div>
+            <img src="./assets/images/tmdb-logo.png" style="width: 150px;" alt="">
+            </div>                          
+    </header>
+
+  <main>
+    <div class="cont">
+        <!--Side bar-->
+         <nav class="side-bar" side-bar>
+             <ul>
+                <li class="menu-item">
+                    <a href="./index.html">
+                        <span class="icon"><i class="bi bi-house"></i></span>
+                        <span class="txt-link">Home</span>
+                    </a>
+                 </li>
+                    <li class="menu-item">
+                        <a href="movie-list.html" class="base-list">
+                            <span class="icon"><i class="bi bi-compass"></i></span>
+                            <span class="txt-link">Explore</span>
+                        </a>
+                    </li>
+                           
+                </ul>
+            </nav>
+
+      <article class="container">
+        <!-- BANNER -->
+        <section class="banner" aria-label="Featured">
+          <div class="banner-slider"></div>
+          <div class="slider-control">
+            <div class="control-inner"></div>
+          </div>
+        </section>
+
+        <!-- LISTS -->
+        <section class="list-section">
+          <div class="list" id="trending-movies">
+            <div class="title-wrapper"><h3 class="title-large">Trending Movies</h3></div>
+            <div class="slider-list">
+              <i class="bi bi-chevron-left left"></i>
+              <div class="slider-inner" id="slider-trending-movies"></div>
+              <i class="bi bi-chevron-right right"></i>
+            </div>
+          </div>
+
+          <div class="list" id="trending-series">
+            <div class="title-wrapper"><h3 class="title-large">Trending Series</h3></div>
+            <div class="slider-list">
+              <i class="bi bi-chevron-left left"></i>
+              <div class="slider-inner" id="slider-trending-series"></div>
+              <i class="bi bi-chevron-right right"></i>
+            </div>
+          </div>
+
+          <div class="list" id="popular-movies">
+            <div class="title-wrapper"><h3 class="title-large">Popular Movies</h3></div>
+            <div class="slider-list">
+              <i class="bi bi-chevron-left left"></i>
+              <div class="slider-inner" id="slider-popular-movies"></div>
+              <i class="bi bi-chevron-right right"></i>
+            </div>
+          </div>
+
+          <div class="list" id="popular-series">
+            <div class="title-wrapper"><h3 class="title-large">Popular Series</h3></div>
+            <div class="slider-list">
+              <i class="bi bi-chevron-left left"></i>
+              <div class="slider-inner" id="slider-popular-series"></div>
+              <i class="bi bi-chevron-right right"></i>
+            </div>
+          </div>
+
+          <div class="list" id="toprated-movies">
+            <div class="title-wrapper"><h3 class="title-large">Top Rated Movies</h3></div>
+            <div class="slider-list">
+              <i class="bi bi-chevron-left left"></i>
+              <div class="slider-inner" id="slider-toprated-movies"></div>
+              <i class="bi bi-chevron-right right"></i>
+            </div>
+          </div>
+
+          <div class="list" id="toprated-series">
+            <div class="title-wrapper"><h3 class="title-large">Top Rated Series</h3></div>
+            <div class="slider-list">
+              <i class="bi bi-chevron-left left"></i>
+              <div class="slider-inner" id="slider-toprated-series"></div>
+              <i class="bi bi-chevron-right right"></i>
+            </div>
+          </div>
+        </section>
+      </article>
+    </div>
+  </main>
+</body>
+</html>

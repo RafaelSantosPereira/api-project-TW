@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="login.css">
+</head>
+<body>
+    
+    <div class="login_create">
+        <div class="div_label">
+            <h2 class="label_login">Login</h2>
+        </div>
+        
+        <form onsubmit="return validar()">
+           <input type="text" class="txt" name="Nome" id="nome" placeholder="Nome">
+           <input type="password" class="txtpass" name="Password" id="password" placeholder="Palavra passe">
+           <button type="submit" name="acao" value="Login" class="LOGIN">Entrar</button>
+        </form>
+        <a href="create.html" class="link_criar">Criar Conta</a>
+    </div>
+
+
+    <script type="module" src="firebase-config.js"></script>
+    <script type="module" src="./js/login.js"></script> <!-- ou login.js dependendo da página -->
+
+</body>
+</html>
