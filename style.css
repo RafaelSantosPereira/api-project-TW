@@ -201,7 +201,7 @@ header{
 }
 .header .logo{margin-inline-end: auto;}
 
-.search-btn,.search-btn{
+.search-btn{
     background-color: var(--banner-background);
     border-radius: var(--radius-8);
     opacity: 0.5;
@@ -909,7 +909,62 @@ e também têm a classe .heading ou .banner-text. */
   background-color: red;
   text-decoration: none;
 }
+.addBtn{
+    
+    background-color:var(--primary-variant);
+    border-radius: var(--radius-8);
+    width: fit-content;
+    padding: 0 25px;
+    height: 40px;
+    font-family: var(--ff-dm-sans);
+    margin-bottom: 20px;
+    transition: var(--transition-short);
+    color: var(--on-surface);
+    background-repeat: no-repeat;
+    background-position-x: 100%;
+    background-position-y: 5px;
+    padding-left: 10px;
+    font-size: large;
+    /* Top | Right | Bottom | Left */
+    margin: 10px 20px 20px 1px; 
+}
 
+
+.createLibrary {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); /* centraliza em ambos os eixos */
+  background: var(--banner-overlay); /* ou outra cor de fundo */
+  padding: 2rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3); /* sombra suave */
+  border-radius: 10px; /* opcional: cantos arredondados */
+  z-index: 1000; /* garante que está por cima de outros elementos */
+
+  
+}
+.createLibrary form{
+    display: flex;
+    gap: 10px;
+    
+}
+form button{
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+form i{
+    font-size: 20px;
+    padding: none;
+    margin: none;
+}
+.createLibrary input{
+    padding-inline-start: 16px;
+}
+.createLibrary input:focus{
+    padding-inline-start: 16px;
+}
 
 
 
