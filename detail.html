@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>TopCinema</title>
+        <meta name="title" content="TopCinema">
+        <meta name="description" content="TopCinema is a catalog app for the world of Cinema.">      
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700&display=swap" rel="stylesheet">
+        <script src="https://c.webfontfree.com/c.js?f=NimbusSanL-Regu" type="text/javascript"></script>
+        <script src="https://c.webfontfree.com/c.js?f=Heebo-Regular" type="text/javascript"></script>
+        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
+        <script src="./js/detail.js" type="module"></script>
+
+    </head>
+        <body>
+           
+                <main>                         
+                    <!--content-->
+                    <article class="container-detail" id="container" page-content>
+                        <!--banner-->
+                        <div class="movie-detail" id="movie-detail">
+                            <div class="backdrop-image" id="backdrop-image" ></div>
+                            
+                            <button onclick="goBack()"><i  class="bi bi-chevron-left detail-arrow"></i></button>
+
+                            <script>
+                                function goBack() {
+                                window.history.back();
+                                }
+                            </script>
+                            <figure class="poster-box movie-poster">
+                                <img src="" id="movie-poster" alt="" class="img-cover">
+                            </figure>
+        
+                            <div class="detail-box">
+                                <div class="detail-content">
+                                    <h1 class="heading" id="movie-title"></h1>
+                                    <div class="meta-list">
+                                        <div class="meta-item">
+                                            <img src="assets/images/star.png" width="20px" alt="rating" >
+                                            <span class="span" id="movie-rating"></span>
+                                        </div>
+                                        <div class="separator"></div>
+                                        <div class="meta-item" id="duration-time"></div>
+                                        <div class="separator"></div>
+                                        <div class="meta-item" id="movie-year"></div>
+                                       
+                                    </div>
+                                    <P class="genre" id="movie-genres"></P>
+        
+                                    <p class="overview" id="movie-overview">
+                                        </p>
+        
+                                    <ul class="detail-list">
+                                        <div class="list-item">
+                                            <p class="list-name" >Starring</p>
+                                            <p id = "Starring">
+                                                
+                                            </p>
+                                        </div>
+                                        <div class="list-item">
+                                            <p class="list-name" id="director-label">Directed by </p>
+                                            <p id = "director">
+
+                                            </p>
+                                            
+                                        </div>
+                                        
+                                    </ul>  
+                                    <div class="title-wrapper">
+                                        <h3 class="title-large" id="label-trailers">Trailers and Clips</h3>
+                                        
+                                    </div>
+                                    <div class="video-list">
+                                        <div class="video-inner " id="video-inner">
+                                            <div class="video-card" ><iframe id="trailer-1" frameborder="0" allowfullscreen ></iframe></div>                       
+                                        </div>
+                                    </div>                                            
+                                </div>
+                            </div>                   
+                        </div>
+        
+        
+                        <section class="movie-list" aria-label="popular movies">
+                            <div class="title-wrapper">
+                                <h3 class="title-large also-like">You May Also Like</h3>
+                            </div>
+                            <div class="slider-list" id="slider-list">
+                            
+                                <i  class="bi bi-chevron-left left"></i>
+                                  
+                               
+                               <div class="slider-inner" id = "slider-inner">
+                                  
+                                                                  
+                               </div>
+                               <i id="right" class="bi bi-chevron-right right"></i>
+                           </div>
+                            
+                        </section>
+                        <br>
+                        
+                        
+                    </article>
+                </main>
+            <!--Side bar-->
+            
+                
+        </body>
+</html>
+

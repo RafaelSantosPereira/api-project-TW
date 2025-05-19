@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>TopCinema</title>
+        <meta name="title" content="TopCinema">
+        <meta name="description" content="TopCinema is a catalog app for the world of Cinema.">      
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700&display=swap" rel="stylesheet">
+        <script src="https://c.webfontfree.com/c.js?f=NimbusSanL-Regu" type="text/javascript"></script>
+        <script src="https://c.webfontfree.com/c.js?f=Heebo-Regular" type="text/javascript"></script>
+        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
+        
+        <script src="./assets/js/movie-list.js" type="module"></script>
+    </head>
+        <body>
+            <!--HEADER-->     
+                <header class="header">
+                    <a href="./index.html" class="logo">
+                        <img src="./assets/images/logo.ico" width="40" height="40" alt="TopCinema menu-item" >
+                    </a>
+                    <!-- search-->
+                    <div class="search-box" search-box>
+                        <div class="search-wrapper" search-wrapper>
+                            <input type="text" name="search" placeholder="search"aria-label="search" class="search-field" autocomplete="off">
+
+                            <img src="assets/images/search.png" width="24" height="24" alt="search"class="leading-icon">
+                            
+                        </div>
+                        
+                        <button class="search-btn" search toggler menu-close>
+                            <img src="assets/images/search.png" width="24" height="24"alt="open search box">
+                        </button>                        
+                    </div>
+                    <div>
+                        <img src="./assets/images/tmdb-logo.png" style="width: 150px;" alt="">
+                    </div>                    
+                </header>
+
+            <div class="cont">
+                  <!--Side bar-->
+                <nav class="side-bar" side-bar>
+                    <ul>
+                        <li class="menu-item">
+                            <a href="./index.html">
+                                <span class="icon"><i class="bi bi-house"></i></span>
+                                <span class="txt-link">Home</span>
+                            </a>
+                        </li>
+                        <li class="menu-item">
+                            <a href="movie-list.html" class="base-list">
+                                <span class="icon"><i class="bi bi-compass"></i></span>
+                                <span class="txt-link">Explore</span>
+                            </a>
+                        </li>
+                        <li class="menu-item">
+                            <a href="movie-list.html" class="base-list">
+                                <span class="icon"><i class="bi bi-collection"></i></span>
+                                <span class="txt-link">Library</span>
+                            </a>
+                        </li>        
+                    </ul>
+                </nav>
+                        <div class="list-box">
+                            <div class="filters">
+                                <select class="select" id="type">
+                                    <option value="movies">Movies</option>
+                                    <option value="series">Series</option>
+                                    <option value="anime">Anime</option>
+                                </select>
+                                <select class="select" id="sort">
+                                    <option value="popularity.desc" selected>Popular</option>                              
+                                    <option value="vote_average.desc">Top Rating</option>
+                                    <option value="primary_release_date.desc">New</option>
+                                </select>
+                                <select class="select" id="provider">
+                                    <option value="all">all providers</option>
+                                    <option value="8">Netflix</option>
+                                    <option value="9">Amazon PRIME</option>
+                                    <option value="1899">HBO MAX</option>
+                                    <option value="350">Aple TV+</option>
+                                    <option value="337">Disney+</option>                              
+                                </select>
+                                
+                                
+                            </div>
+                            <article class="container" page-content>             
+                                <div class="grid-list">
+                                                                          
+                                </div>
+                                
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                        
+                            </article>
+                        
+                        </div>
+                            
+                   
+
+            </div>
+          
+            
+
+                
+            
+            
+            
+                
+        </body>
+</html>
+

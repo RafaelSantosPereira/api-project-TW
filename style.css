@@ -869,6 +869,47 @@ e também têm a classe .heading ou .banner-text. */
 }
 :is(.genre-list, .search-modal) :is(.movie-card, .card-banner){ width: 100%;}
 
+.user-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin-left: auto;
+  padding: 8px;
+}
+
+.user-btn .icon {
+  width: 42px;
+  height: 42px;
+  color: white; /* ou #fff, ajusta conforme o tema */
+}
+
+#account-popup {
+  position: absolute;
+  top: 60px; /* Ajusta conforme o botão */
+  right: 10px;
+  color: white;
+  background: var(--background);
+  border: 1px solid #ccc;
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.2);
+  z-index: 999;
+}
+
+.hidden {
+  display: none;
+}
+
+#account-popup a {
+  display: block;
+  margin: 5px 0;
+  padding: 4PX;
+  text-align: center;
+  color: white;
+  background-color: red;
+  text-decoration: none;
+}
+
 
 
 

@@ -17,6 +17,53 @@ import {
   serieID,
   trending
 } from './api.js';
+import { auth } from './firebase-config.js';
+import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.7.1/firebase-auth.js";
+
+// Referências DOM
+const accountBtn = document.querySelector('.user-btn');
+const popup = document.getElementById('account-popup');
+const content = document.getElementById('account-content');
+
+// Mostrar/ocultar popup ao clicar no botão
+accountBtn.addEventListener('click', () => {
+  popup.classList.toggle('hidden');
+});
+
+// Fechar popup ao clicar fora
+window.addEventListener('click', (e) => {
+  if (!popup.contains(e.target) && !accountBtn.contains(e.target)) {
+    popup.classList.add('hidden');
+  }
+});
+
+// Mostrar conteúdo dependendo do estado de autenticação
+onAuthStateChanged(auth, user => {
+  if (user) {
+    // Se logado: mostrar nome e logout
+    content.innerHTML = `
+      <p>Olá, ${user.email}</p>
+      <a href="#" id="logout-btn">Logout</a>
+    `;
+    // Evento logout
+    setTimeout(() => {
+      const logoutBtn = document.getElementById('logout-btn');
+      logoutBtn.addEventListener('click', async () => {
+        await signOut(auth);
+        alert("Sessão terminada");
+        location.reload();
+      });
+    }, 0);
+
+  } else {
+    // Se não logado: mostrar login e criar conta
+    content.innerHTML = `
+      <a href="login.html">Login</a>
+      <a href="create.html">Criar conta</a>
+    `;
+  }
+});
+
 
 // Banner dinamicamente
 function BannerContent(url) {
@@ -151,7 +198,7 @@ window.addEventListener('DOMContentLoaded', () => {
   getContent(trendingMovies,    'slider-trending-movies', trending ? movieID : movieID);
   getContent(trendingSeries,    'slider-trending-series', serieID);
   getContent(discover_movies,   'slider-popular-movies', movieID);
-  getContent(discover_series+'?vote_count.gte=170', 'slider-popular-series', serieID);
+  getContent(discover_series, 'slider-popular-series', serieID);
   getContent(topRatedMovies,    'slider-toprated-movies', movieID);
   getContent(topRatedSeries,    'slider-toprated-series', serieID);
 
