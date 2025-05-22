@@ -116,6 +116,8 @@ document.addEventListener('DOMContentLoaded', () => {
         playlistsSelect.appendChild(option);
       });
 
+      console.log(result)
+
     } catch (error) {
       console.error("Erro ao carregar playlists:", error);
     }
