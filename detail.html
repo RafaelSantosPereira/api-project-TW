@@ -39,7 +39,24 @@
                             </figure>
         
                             <div class="detail-box">
-                                <div class="detail-content">
+                                <div class="detail-content", style="position: relative;">
+                                    <button class="addBtn", style="position: absolute; right: 5px;">
+                                        Add to library
+                                    </button>
+                                    
+                                    <div class="createLibrary hidden">
+                                        <form action="">
+                                            <select class="select" id="playlistsSelect">
+                                    
+                                        </select>
+                                            <button class="search-btn" id="btnAddTo"  search toggler menu-close>
+                                                <i class="bi bi-plus-lg"></i>
+                                                
+                                            </button>      
+                                        </form> 
+                                    </div>
+
+
                                     <h1 class="heading" id="movie-title"></h1>
                                     <div class="meta-list">
                                         <div class="meta-item">
@@ -52,7 +69,11 @@
                                         <div class="meta-item" id="movie-year"></div>
                                        
                                     </div>
-                                    <P class="genre" id="movie-genres"></P>
+                                    
+                                        <P class="genre" id="movie-genres"></P>
+                                        
+                                    
+                                    
         
                                     <p class="overview" id="movie-overview">
                                         </p>
@@ -85,7 +106,7 @@
                                 </div>
                             </div>                   
                         </div>
-        
+                        
         
                         <section class="movie-list" aria-label="popular movies">
                             <div class="title-wrapper">

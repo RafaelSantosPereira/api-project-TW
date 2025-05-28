@@ -63,51 +63,55 @@ document.addEventListener('DOMContentLoaded', () => {
     contCreate.classList.toggle('hidden');
   });
 
-  async function loadUserPlaylists(user) {
-    try {
-      const token = await user.getIdToken();
+  
+});
 
-      const response = await fetch(
-        `https://firestore.googleapis.com/v1/projects/${projectId}/databases/(default)/documents:runQuery`,
-        {
-            method: "POST",
-            headers: {
-            "Authorization": `Bearer ${token}`,
-            "Content-Type": "application/json"
+export async function loadUserPlaylists(user) {
+  try {
+    const token = await user.getIdToken();
+
+    const response = await fetch(
+      `https://firestore.googleapis.com/v1/projects/${projectId}/databases/(default)/documents:runQuery`,
+      {
+        method: "POST",
+        headers: {
+          "Authorization": `Bearer ${token}`,
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          structuredQuery: {
+            from: [{ collectionId: "playlists" }],
+            where: {
+              fieldFilter: {
+                field: { fieldPath: "userId" },
+                op: "EQUAL",
+                value: { stringValue: user.uid }
+              }
             },
-            body: JSON.stringify({
-            structuredQuery: {
-                from: [{ collectionId: "playlists" }],
-                where: {
-                fieldFilter: {
-                    field: { fieldPath: "userId" },
-                    op: "EQUAL",
-                    value: { stringValue: user.uid }
-                }
-                },
-                orderBy: [{
-                field: { fieldPath: "createdAt" },
-                direction: "DESCENDING"
-                }]
-            }
-            })
-        }
-        );
+            orderBy: [{
+              field: { fieldPath: "createdAt" },
+              direction: "DESCENDING"
+            }]
+          }
+        })
+      }
+    );
 
-      if (!response.ok) {
-        const errorText = await response.text();
-        throw new Error("Erro ao buscar playlists: " + errorText);
-        }
+    if (!response.ok) {
+      const errorText = await response.text();
+      throw new Error("Erro ao buscar playlists: " + errorText);
+    }
 
-      const result = await response.json();
-      const playlists = result
-        .filter(doc => doc.document)
-        .map(doc => ({
-          id: doc.document.name.split("/").pop(),
-          title: doc.document.fields.title.stringValue
-        }));
+    const result = await response.json();
+    const playlists = result
+      .filter(doc => doc.document)
+      .map(doc => ({
+        id: doc.document.name.split("/").pop(),
+        title: doc.document.fields.title.stringValue
+      }));
 
-      const playlistsSelect = document.querySelector("#playlistsSelect");
+    const playlistsSelect = document.querySelector("#playlistsSelect");
+    if (playlistsSelect) {
       playlistsSelect.innerHTML = "";
       playlists.forEach(({ title }) => {
         const option = document.createElement("option");
@@ -115,11 +119,11 @@ document.addEventListener('DOMContentLoaded', () => {
         option.textContent = title;
         playlistsSelect.appendChild(option);
       });
-
-      console.log(result)
-
-    } catch (error) {
-      console.error("Erro ao carregar playlists:", error);
     }
+
+    console.log("Playlists carregadas:", playlists);
+
+  } catch (error) {
+    console.error("Erro ao carregar playlists:", error);
   }
-});
+}

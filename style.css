@@ -931,15 +931,16 @@ e também têm a classe .heading ou .banner-text. */
 
 
 .createLibrary {
-  position: absolute;
+  position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%); /* centraliza em ambos os eixos */
-  background: var(--banner-overlay); /* ou outra cor de fundo */
+  background: var(--background-base); /* ou outra cor de fundo */
   padding: 2rem;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3); /* sombra suave */
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8); /* sombra suave */
   border-radius: 10px; /* opcional: cantos arredondados */
   z-index: 1000; /* garante que está por cima de outros elementos */
+  
 
   
 }
@@ -965,6 +966,8 @@ form i{
 .createLibrary input:focus{
     padding-inline-start: 16px;
 }
+
+
 
 
 

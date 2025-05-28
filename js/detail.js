@@ -15,10 +15,18 @@ const serie_search = base_url + '/tv/' + serieId + '?' + api_key;
 const serie_video_search = base_url + '/tv/'+ serieId + '/videos?language=en-US&'+ api_key;
 const serie_credits = base_url + '/tv/'+ serieId + '/credits?language=en-US&'+ api_key;
 
+import { auth, firebaseConfig } from "./firebase-config.js";
+import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.7.1/firebase-auth.js";
+const projectId = firebaseConfig.projectId;
+
 const movies_div = document.querySelector('.slider-inner');
 const slider = document.querySelector('.slider-list');
 const list = document.querySelector('.movie-list');
-
+const contCreate = document.querySelector(".createLibrary");
+const btn = document.querySelector(".addBtn");
+const btnAdd = document.getElementById("btnAddTo")
+let currentIdType = "";
+let currentId = ""
 
 console.log('ID do Filme:', movieId);
 const content_div = document.getElementById('container');
@@ -27,12 +35,20 @@ if(movieId){
 
   getCredits(credits_search);
   getvideos(video_search)
+  currentIdType = movieID
+  currentId = movieId
 }
 else if(serieId){
   getContent(serie_search, slider, movies_div, serieID, strimgSerie);
   getvideos(serie_video_search)
   getCredits(serie_credits);
+  currentIdType = serieID
+  currentId = serieId
 }
+
+
+
+
 
 function getContent(url, Slider,parentElement, ID, stringQuery) {
     fetch(url).then(res => res.json()).then(data => {
@@ -206,5 +222,125 @@ function showMovies(movie) {
           parentElement.appendChild(movieEl);
     
       });
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      onAuthStateChanged(auth, (user) => {
+
+        if (user) {
+            btn.addEventListener('click', () => {
+            contCreate.classList.toggle('hidden');
+            console.log("banana")
+          });
+          loadUserPlaylists(user);
+          btnAdd.addEventListener("click", () =>{
+            event.preventDefault();
+            console.log("Adicionar item com:", currentIdType, currentId);
+            addNew(currentId, currentIdType)
+          })
+
+        }
+
+        
+
+        
+
+
+        
+        
+      });
+   });
+    async function addNew(contentId, contentType) {
+      try {
+        const selectedPlaylistId = document.getElementById("playlistsSelect").value;
+        if (!selectedPlaylistId) return alert("Seleciona uma playlist");
+
+        const token = await auth.currentUser.getIdToken();
+        console.log("Vai adicionar a:", `playlists/${selectedPlaylistId}/items`);
+        console.log("Conteúdo:", contentId, contentType);
+        const response = await fetch(`https://firestore.googleapis.com/v1/projects/${projectId}/databases/(default)/documents/playlists/${selectedPlaylistId}/items`, {
+          method: "POST",
+          headers: {
+            "Authorization": `Bearer ${token}`,
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            fields: {
+              id: { stringValue: contentId },
+              type: { stringValue: contentType } // 'movie' ou 'serie'
+            }
+          })
+        });
+
+        if (!response.ok) throw new Error("Erro ao adicionar item à playlist");
+
+        const data = await response.json();
+        console.log("Item adicionado à playlist:", data);
+        alert("conteudo adicionado com sucesso")
+
+      } catch (error) {
+        console.error("Erro ao adicionar à playlist:", error);
+      }
+    }
+    async function loadUserPlaylists(user) {
+      try {
+        const token = await user.getIdToken();
+    
+        const response = await fetch(
+          `https://firestore.googleapis.com/v1/projects/${projectId}/databases/(default)/documents:runQuery`,
+          {
+            method: "POST",
+            headers: {
+              "Authorization": `Bearer ${token}`,
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+              structuredQuery: {
+                from: [{ collectionId: "playlists" }],
+                where: {
+                  fieldFilter: {
+                    field: { fieldPath: "userId" },
+                    op: "EQUAL",
+                    value: { stringValue: user.uid }
+                  }
+                },
+                orderBy: [{
+                  field: { fieldPath: "createdAt" },
+                  direction: "DESCENDING"
+                }]
+              }
+            })
+          }
+        );
+    
+        if (!response.ok) {
+          const errorText = await response.text();
+          throw new Error("Erro ao buscar playlists: " + errorText);
+        }
+    
+        const result = await response.json();
+        const playlists = result
+          .filter(doc => doc.document)
+          .map(doc => ({
+            id: doc.document.name.split("/").pop(),
+            title: doc.document.fields.title.stringValue
+          }));
+    
+        const playlistsSelect = document.querySelector("#playlistsSelect");
+        if (playlistsSelect) {
+          playlistsSelect.innerHTML = "";
+          playlists.forEach(({ id, title }) => {
+          const option = document.createElement("option");
+          option.value = id; // Agora sim, a variável está definida
+          option.textContent = title;
+          playlistsSelect.appendChild(option);
+        });
+        }
+    
+        console.log("Playlists carregadas:", playlists);
+    
+      } catch (error) {
+        console.error("Erro ao carregar playlists:", error);
+      }
     }
     
