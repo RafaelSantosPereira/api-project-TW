@@ -8,10 +8,10 @@ const api_key = 'api_key=a5d66f53cd4d37e6c21ce410122b6b32';
 const ImageBaseURL = 'https://image.tmdb.org/t/p/w780';
 const backdropBaseUrl = 'https://image.tmdb.org/t/p/w1280'
 const base_url = 'https://api.themoviedb.org/3';
-const movie_search = base_url + '/movie/' + movieId + '?' + api_key;
+export const movie_search = base_url + '/movie/' + movieId + '?' + api_key;
 const credits_search = base_url + '/movie/' + movieId + '/credits?language=en-US&' + api_key
 const video_search = base_url + '/movie/' + movieId + '/videos?language=en-US&' + api_key
-const serie_search = base_url + '/tv/' + serieId + '?' + api_key;
+export const serie_search = base_url + '/tv/' + serieId + '?' + api_key;
 const serie_video_search = base_url + '/tv/'+ serieId + '/videos?language=en-US&'+ api_key;
 const serie_credits = base_url + '/tv/'+ serieId + '/credits?language=en-US&'+ api_key;
 
@@ -238,7 +238,7 @@ function showMovies(movie) {
             console.log("Adicionar item com:", currentIdType, currentId);
             addNew(currentId, currentIdType)
           })
-
+          
         }
 
         

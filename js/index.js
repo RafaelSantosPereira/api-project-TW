@@ -20,6 +20,7 @@ import {
 import { auth } from './firebase-config.js';
 import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.7.1/firebase-auth.js";
 
+
 // Referências DOM
 const accountBtn = document.querySelector('.user-btn');
 const popup = document.getElementById('account-popup');
@@ -150,7 +151,7 @@ function BannerContent(url) {
 
 
 // Função genérica para preenchimento de sliders
-function getContent(url, targetId, ID) {
+export function getContent(url, targetId, ID) {
   fetch(url)
     .then(res => res.json())
     .then(data => {
@@ -185,6 +186,8 @@ function getContent(url, targetId, ID) {
 function ScrollSlider(listId, innerId) {
   const container = document.querySelector(`#${listId} .slider-list`);
   const inner = document.getElementById(innerId);
+    if (!container || !inner) return;
+
   const left = container.querySelector('.bi-chevron-left');
   const right = container.querySelector('.bi-chevron-right');
   const width = inner.clientWidth;
