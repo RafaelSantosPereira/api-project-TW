@@ -9,11 +9,14 @@ import { ImageBaseURL } from "./api.js";
 const projectId = firebaseConfig.projectId;
 
  const playlistsSelect = document.querySelector("#playlistsSelect");
+
+ const gridList = document.querySelector(".grid-list");
 document.addEventListener('DOMContentLoaded', () => {
   const btn = document.querySelector(".addBtn");
   const contCreate = document.querySelector(".createLibrary");
   const createBtn = document.querySelector("#btnCreate");
   const inputField = document.querySelector(".createLibrary input");
+  
   
  
 
@@ -116,7 +119,7 @@ export async function loadUserPlaylists(user) {
 
     
     if (playlistsSelect) {
-      playlistsSelect.innerHTML = "";
+     
       playlists.forEach(({ id, title }) => {
         const option = document.createElement("option");
         option.value = id;
@@ -130,6 +133,7 @@ export async function loadUserPlaylists(user) {
 
       playlistsSelect.addEventListener("change", async () => {
         const playlistId = playlistsSelect.value;
+        gridList.innerHTML = ``;
         if (!playlistId) return;
 
         try {
@@ -159,8 +163,6 @@ export async function loadUserPlaylists(user) {
           })) ?? [];
 
           console.log("Items da playlist:", items);
-
-          const gridList = document.getElementById("grid-list");  // <-- AQUI
 
           gridList.innerHTML = ""; // limpa antes de preencher
 
@@ -198,7 +200,6 @@ function getSingleContent(url, targetId, type) {
       const year = (item.release_date || item.first_air_date || '').slice(0, 4);
       const rate = item.vote_average?.toFixed(1) || '0.0';
       const container = document.getElementById(targetId);
-      container.innerHTML = '';
 
       container.innerHTML += `
         <div class="movie-card">
