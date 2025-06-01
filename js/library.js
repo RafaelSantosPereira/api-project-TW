@@ -22,7 +22,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
   onAuthStateChanged(auth, (user) => {
     if (user) {
-      loadUserPlaylists(user);
+      loadUserPlaylists(user).then(playlists => {
+      // Seleciona automaticamente a primeira playlist e dispara o evento "change"
+      if (playlists && playlists.length > 0) {
+        playlistsSelect.value = playlists[0].id;
+        const event = new Event('change');
+        playlistsSelect.dispatchEvent(event);
+      }
+    });
 
       createBtn.addEventListener("click", async (e) => {
         e.preventDefault();
@@ -73,7 +80,7 @@ document.addEventListener('DOMContentLoaded', () => {
   
 });
 
-export async function loadUserPlaylists(user) {
+async function loadUserPlaylists(user) {
   try {
     const token = await user.getIdToken();
 
@@ -117,18 +124,15 @@ export async function loadUserPlaylists(user) {
         title: doc.document.fields.title.stringValue
       }));
 
-    
+  
+    playlistsSelect.innerHTML = '';
+
     if (playlistsSelect) {
-     
       playlists.forEach(({ id, title }) => {
         const option = document.createElement("option");
         option.value = id;
         option.textContent = title;
         playlistsSelect.appendChild(option);
-
-
-
-      
       });
 
       playlistsSelect.addEventListener("change", async () => {
@@ -138,7 +142,6 @@ export async function loadUserPlaylists(user) {
 
         try {
           const token = await user.getIdToken();
-
           const response = await fetch(
             `https://firestore.googleapis.com/v1/projects/${projectId}/databases/(default)/documents/playlists/${playlistId}/items`,
             {
@@ -162,20 +165,16 @@ export async function loadUserPlaylists(user) {
             type: doc.fields.type.stringValue
           })) ?? [];
 
-          console.log("Items da playlist:", items);
-
-          gridList.innerHTML = ""; // limpa antes de preencher
+          gridList.innerHTML = ""; 
 
           items.forEach(item => {
             const { id, type } = item;
-
             const url =
               type === "movieId"
                 ? `${base_url}/movie/${id}?${api_key}`
                 : `${base_url}/tv/${id}?${api_key}`;
-
             const contentType = type === "movieId" ? movieID : serieID;
-            getSingleContent(url, 'grid-list', contentType)
+            getSingleContent(url, 'grid-list', contentType);
           });
 
         } catch (error) {
@@ -185,11 +184,13 @@ export async function loadUserPlaylists(user) {
     }
 
     console.log("Playlists carregadas:", playlists);
-
+    return playlists; // <- Retorna playlists aqui
   } catch (error) {
     console.error("Erro ao carregar playlists:", error);
+    return [];
   }
 }
+
 
 function getSingleContent(url, targetId, type) {
   fetch(url)
@@ -221,7 +222,24 @@ function getSingleContent(url, targetId, type) {
         </div>`;
     })
     .catch(error => console.error("Erro ao carregar item:", error));
+
+
 }
+
+window.addEventListener('DOMContentLoaded', () => {
+   // Search
+  const field = document.querySelector('.search-field');
+  const btn = document.querySelector('.search-btn');
+  const redirect = () => {
+    const q = field.value.trim(); if(!q) return;
+    window.location.href = `search.html?search=${encodeURIComponent(q)}`;
+  };
+  btn.addEventListener('click', redirect);
+  field.addEventListener('keypress', e => e.key==='Enter' && redirect());
+
+})
+
+
 
 
 

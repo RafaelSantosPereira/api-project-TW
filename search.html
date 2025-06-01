@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>TopCinema</title>
+        <meta name="title" content="TopCinema">
+        <meta name="description" content="TopCinema is a catalog app for the world of Cinema.">      
+        
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700&display=swap" rel="stylesheet">
+        <script src="https://c.webfontfree.com/c.js?f=NimbusSanL-Regu" type="text/javascript"></script>
+        <script src="https://c.webfontfree.com/c.js?f=Heebo-Regular" type="text/javascript"></script>
+        <link rel="stylesheet" href="../style.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
+        <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600&display=swap" rel="stylesheet">
+        <script src="./js/search.js" type="module"></script>
+    </head>
+        <body>
+            <!--HEADER-->     
+                <header class="header">
+                    <a href="./index.html" class="logo">
+                        <img src="./assets/images/logo.ico" width="40" height="40" alt="TopCinema menu-item" >
+                    </a>
+                    <!-- search-->
+                    <div class="search-box" search-box>
+                        <div class="search-wrapper" search-wrapper>
+                            <input type="text" name="search" placeholder="search"aria-label="search" class="search-field" id="search-bar" autocomplete="off">
+
+                            <img src="assets/images/search.png" width="24" height="24" alt="search"class="leading-icon">
+                            
+                        </div>
+                        
+                        <button class="search-btn" id="search-btn"  search toggler menu-close>
+                            <img src="assets/images/search.png" width="24" height="24"alt="open search box">
+                        </button>                        
+                    </div>
+                    <div>
+                        <img src="./assets/images/tmdb-logo.png" style="width: 150px;" alt="">
+                     </div>                                  
+                </header>
+            <!--Side bar-->
+            <main>
+                <div class="cont">
+                    <nav class="side-bar" side-bar>
+                        <ul>
+                            <li class="menu-item">
+                                <a href="./index.html">
+                                    <span class="icon"><i class="bi bi-house"></i></span>
+                                    <span class="txt-link">Home</span>
+                                </a>
+                            </li>
+                            <li class="menu-item" id="base">
+                                <a href="movie-list.html">
+                                    <span class="icon"><i class="bi bi-compass"></i></span>
+                                    <span class="txt-link">Explore</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+        
+                    <!--content-->
+                    <article class="container" page-content>
+                        <!--banner-->
+                        
+                        
+        
+                        <section class="list" id="list" aria-label="popular movies">
+                            <div id="movie-container">
+                                <div class="title-wrapper" id="title-wrapper">
+                                    <h3 class="title-large">Movies</h3>
+                                </div>
+                                <div class="slider-list" id="slider-list">
+                                    
+                                     <i  class="bi bi-chevron-left left"></i>
+                                       
+                                    
+                                    <div class="slider-inner" id = "slider-inner">
+                                        <div class="movie-card">
+                                            <a href="./detail.html" class="card-btn"> 
+                                                <figure class="poster-box card-banner">
+                                                    <img src="" class="img-cover" alt="" >
+                                                </figure>
+                                                <div class="card-wrapper">
+                                                    <h4 class="title">Puss in Boots: the Last Wish</h4>
+                                                    <div class="meta-list">
+                                    
+                                                        <div class="meta-item">
+                                                            <span class="span">8.4</span>
+                                                            <img src="./assets/images/star.png" width="20px" height="20px" loading="lazy" alt="rating">             
+                                                        </div>
+                                                        <div class="card-badge">2022</div>           
+                                                    </div>
+                                                </div>
+                                            </a>
+                                                                                                    
+                                        </div>
+                                                                       
+                                    </div>
+                                    <i id="right" class="bi bi-chevron-right right"></i>
+                                </div>
+                            </div>
+                            
+                            <div id="series-container">
+                                <div class="title-wrapper" id="title-wrapper">
+                                    <h3 class="title-large">Series</h3>
+                                </div>
+                                <div class="slider-list2" id="slider-list2">
+                                    
+                                     <i  class="bi bi-chevron-left left"></i>
+                                       
+                                    
+                                    <div class="slider-inner2" id = "slider-inner2">
+                                        <div class="movie-card">
+                                            <a href="./detail.html" class="card-btn"> 
+                                                <figure class="poster-box card-banner">
+                                                    <img src="" class="img-cover" alt="" >
+                                                </figure>
+                                                <div class="card-wrapper">
+                                                    <h4 class="title">Puss in Boots: the Last Wish</h4>
+                                                    <div class="meta-list">
+                                    
+                                                        <div class="meta-item">
+                                                            <span class="span">8.4</span>
+                                                            <img src="./assets/images/star.png" width="20px" height="20px" loading="lazy" alt="rating">             
+                                                        </div>
+                                                        <div class="card-badge">2022</div>           
+                                                    </div>
+                                                </div>
+                                            </a>
+                                                                                                    
+                                        </div>
+                                                                       
+                                    </div>
+                                    <i id="right" class="bi bi-chevron-right right"></i>
+                                </div>
+                            </div>
+                            
+                        </section>
+                        
+                        
+                    </article>
+                </div>
+                
+            </main>
+            
+                
+        </body>
+        
+</html>
+

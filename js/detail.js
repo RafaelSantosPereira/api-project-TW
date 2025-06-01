@@ -250,38 +250,72 @@ function showMovies(movie) {
         
       });
    });
-    async function addNew(contentId, contentType) {
+   async function addNew(contentId, contentType) {
       try {
         const selectedPlaylistId = document.getElementById("playlistsSelect").value;
         if (!selectedPlaylistId) return alert("Seleciona uma playlist");
 
         const token = await auth.currentUser.getIdToken();
-        console.log("Vai adicionar a:", `playlists/${selectedPlaylistId}/items`);
-        console.log("Conteúdo:", contentId, contentType);
-        const response = await fetch(`https://firestore.googleapis.com/v1/projects/${projectId}/databases/(default)/documents/playlists/${selectedPlaylistId}/items`, {
-          method: "POST",
-          headers: {
-            "Authorization": `Bearer ${token}`,
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify({
-            fields: {
-              id: { stringValue: contentId },
-              type: { stringValue: contentType } // 'movie' ou 'serie'
+
+        const checkResponse = await fetch(
+          `https://firestore.googleapis.com/v1/projects/${projectId}/databases/(default)/documents/playlists/${selectedPlaylistId}/items`,
+          {
+            method: "GET",
+            headers: {
+              "Authorization": `Bearer ${token}`,
+              "Content-Type": "application/json"
             }
-          })
+          }
+        );
+
+        if (!checkResponse.ok) throw new Error("Erro ao verificar itens da playlist");
+
+        const checkData = await checkResponse.json();
+
+        if (!checkData.documents || !Array.isArray(checkData.documents)) {
+          throw new Error("Formato inesperado dos dados recebidos");
+        }
+
+        const exists = checkData.documents.some(doc => {
+          const fields = doc.fields;
+          return fields &&
+            fields.id?.stringValue === contentId &&
+            fields.type?.stringValue === contentType;
         });
+
+        if (exists) {
+          alert("Este conteúdo já foi adicionado a esta playlist.");
+          return;
+        }
+
+        const response = await fetch(
+          `https://firestore.googleapis.com/v1/projects/${projectId}/databases/(default)/documents/playlists/${selectedPlaylistId}/items`,
+          {
+            method: "POST",
+            headers: {
+              "Authorization": `Bearer ${token}`,
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+              fields: {
+                id: { stringValue: contentId },
+                type: { stringValue: contentType }
+              }
+            })
+          }
+        );
 
         if (!response.ok) throw new Error("Erro ao adicionar item à playlist");
 
         const data = await response.json();
         console.log("Item adicionado à playlist:", data);
-        alert("conteudo adicionado com sucesso")
+        alert("Conteúdo adicionado com sucesso");
 
       } catch (error) {
         console.error("Erro ao adicionar à playlist:", error);
       }
     }
+
     async function loadUserPlaylists(user) {
       try {
         const token = await user.getIdToken();

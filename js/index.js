@@ -21,7 +21,7 @@ import { auth } from './firebase-config.js';
 import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.7.1/firebase-auth.js";
 
 
-// Referências DOM
+
 const accountBtn = document.querySelector('.user-btn');
 const popup = document.getElementById('account-popup');
 const content = document.getElementById('account-content');
@@ -41,7 +41,7 @@ window.addEventListener('click', (e) => {
 // Mostrar conteúdo dependendo do estado de autenticação
 onAuthStateChanged(auth, user => {
   if (user) {
-    // Se logado: mostrar nome e logout
+    
     content.innerHTML = `
       <p>Olá, ${user.email}</p>
       <a href="#" id="logout-btn">Logout</a>
@@ -140,7 +140,7 @@ function BannerContent(url) {
           isDragging = false;
         };
 
-        control.addEventListener('mousedown', dragStart);//evento de pressionar o botão do mouse ao contêiner
+        control.addEventListener('mousedown', dragStart);
         control.addEventListener('mousemove', dragMove);
         control.addEventListener('mouseup', dragEnd);
         control.addEventListener('mouseleave', dragEnd);
