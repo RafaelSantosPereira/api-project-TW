@@ -203,7 +203,7 @@ function getSingleContent(url, targetId, type) {
       const container = document.getElementById(targetId);
 
       container.innerHTML += `
-        <div class="movie-card">
+        <div class="movie-card relativeGroup">
           <a href="./detail.html?${type}=${item.id}" class="card-btn">
             <figure class="poster-box card-banner">
               <img src="${ImageBaseURL}${item.poster_path}" class="img-cover" alt="${title}">
@@ -219,12 +219,122 @@ function getSingleContent(url, targetId, type) {
               </div>
             </div>
           </a>
+
+          <!-- Botão de 3 pontos no canto superior direito -->
+          <div class="contBtDelete">
+            <button class="more-btn">⋮</button>
+            <div class="delete-menu hidden">
+              <button class="delete-item" data-id="${item.id}" data-type="${type}">Eliminar</button>
+            </div>
+          </div>
         </div>`;
     })
     .catch(error => console.error("Erro ao carregar item:", error));
 
 
 }
+
+// Substitua a parte do código de eliminação no evento click por este código corrigido:
+
+gridList.addEventListener('click', async (e) => {
+  const moreBtn = e.target.closest('.more-btn');
+  const deleteBtn = e.target.closest('.delete-item');
+
+  // Botão "⋮"
+  if (moreBtn) {
+    e.preventDefault();
+    const menu = moreBtn.nextElementSibling;
+    if (menu) menu.classList.toggle('hidden');
+    return;
+  }
+
+  // Botão "Eliminar"
+  if (deleteBtn) {
+    e.preventDefault();
+    const itemId = deleteBtn.getAttribute('data-id');
+    const itemType = deleteBtn.getAttribute('data-type');
+    console.log("A eliminar:", { itemId, itemType });
+    
+    const user = auth.currentUser;
+    if (!user) return alert("Não autenticado");
+
+    const token = await user.getIdToken();
+    const playlistId = playlistsSelect.value;
+
+    try {
+      const itemsResponse = await fetch(
+        `https://firestore.googleapis.com/v1/projects/${projectId}/databases/(default)/documents/playlists/${playlistId}/items`,
+        {
+          method: "GET",
+          headers: {
+            "Authorization": `Bearer ${token}`,
+            "Content-Type": "application/json"
+          }
+        }
+      );
+
+      if (!itemsResponse.ok) {
+        const errorText = await itemsResponse.text();
+        throw new Error("Erro ao buscar itens: " + errorText);
+      }
+
+      const itemsResult = await itemsResponse.json();
+      console.log("Todos os itens da playlist:", itemsResult);
+
+      // Procura o documento que corresponde ao item que vai ser eliminado
+      const targetDocument = itemsResult.documents?.find(doc => {
+        const docId = doc.fields.id?.stringValue;
+        const docType = doc.fields.type?.stringValue;
+        console.log("Comparando:", { docId, docType, itemId, itemType });
+        return docId === itemId && docType === itemType;
+      });
+
+      if (!targetDocument) {
+        console.log("Item não encontrado. Dados disponíveis:", {
+          itemsProcurados: { itemId, itemType },
+          itemsEncontrados: itemsResult.documents?.map(doc => ({
+            id: doc.fields.id?.stringValue,
+            type: doc.fields.type?.stringValue,
+            documentName: doc.name
+          }))
+        });
+        alert("Item não encontrado na playlist.");
+        return;
+      }
+
+      const docName = targetDocument.name;
+      console.log("Documento a eliminar:", docName);
+
+      // Elimina o documento
+      const deleteResponse = await fetch(
+        `https://firestore.googleapis.com/v1/${docName}`,
+        {
+          method: "DELETE",
+          headers: { 
+            "Authorization": `Bearer ${token}`,
+            "Content-Type": "application/json"
+          }
+        }
+      );
+
+      if (!deleteResponse.ok) {
+        const errorText = await deleteResponse.text();
+        throw new Error("Erro ao eliminar item: " + errorText);
+      }
+
+      console.log("Item eliminado com sucesso");
+      alert("Item eliminado da playlist!");
+      
+      // Recarrega os itens da playlist
+      const changeEvent = new Event("change");
+      playlistsSelect.dispatchEvent(changeEvent);
+
+    } catch (error) {
+      console.error("Erro ao eliminar item:", error);
+      alert("Erro ao eliminar item: " + error.message);
+    }
+  }
+});
 
 window.addEventListener('DOMContentLoaded', () => {
    // Search

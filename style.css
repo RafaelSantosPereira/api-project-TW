@@ -966,7 +966,61 @@ form i{
 .createLibrary input:focus{
     padding-inline-start: 16px;
 }
+.more-btn {
+  background: none;
+  border: none;
+  font-size: 1.2em;
+  cursor: pointer;
+  top: 2px;
+  right: 8px;
+  position: absolute;
+}
+.relativeGroup{
+    position: relative;
+}
 
+.delete-menu {
+  position: absolute;
+  background: var(--background);
+  color: white;
+  right: 4px;
+  top: 4px;
+  border: 1px solid white;
+  border-radius: 4px;
+  padding: 4px 8px;
+}
+
+.contBtDelete {
+  position: absolute;
+  top: 0px;
+  right: 8px;
+  z-index: 20;
+}
+
+.more-btn {
+  background: none;
+  border: none;
+  font-size: 40px;
+  color: white;
+  cursor: pointer;
+}
+
+.delete-menu {
+  position: absolute;
+  right: 0;
+  top: 50px;
+  border: 1px solid white;
+  border-radius: 6px;
+  padding: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+.delete-item{
+    background-color: var(--background);
+    color: white;
+}
+.delete-menu.hidden {
+  display: none;
+}
 
 
 
