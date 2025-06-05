@@ -2,10 +2,31 @@ import { searchMovie, searchSerie, movieID, serieID, discover_movies } from "./a
 
 const urlParams = new URLSearchParams(window.location.search);
 const search = urlParams.get('search');
+const searchBtn = document.getElementById("search-btn")
 
 document.addEventListener('DOMContentLoaded', function () {
     searchContent();
+
+    const searchInput = document.getElementById("search-bar"); 
+    const searchBtn = document.getElementById("search-btn");
+
+    searchBtn.addEventListener("click", function () {
+        const inputValue = searchInput.value.trim();
+        if (inputValue) {
+            window.location.href = `./search.html?search=${encodeURIComponent(inputValue)}`;
+        }
+    });
+
+    searchInput.addEventListener("keydown", function (event) {
+        if (event.key === "Enter") {
+            const inputValue = searchInput.value.trim();
+            if (inputValue) {
+                window.location.href = `./search.html?search=${encodeURIComponent(inputValue)}`;
+            }
+        }
+    });
 });
+
 
 function ScrollSlider(containerId, innerId) {
     const container = document.getElementById(containerId);
