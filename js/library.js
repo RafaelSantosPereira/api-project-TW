@@ -5,6 +5,7 @@ import { api_key } from "./api.js";
 import { movieID } from "./api.js";
 import { serieID } from "./api.js";
 import { ImageBaseURL } from "./api.js";
+import { discover_movies } from "./api.js";
 
 const projectId = firebaseConfig.projectId;
 const playlistsSelect = document.querySelector("#playlistsSelect");
@@ -56,6 +57,61 @@ document.addEventListener('DOMContentLoaded', () => {
       displaySortedItems();
     }
   });
+
+  //user buton
+  const accountBtn = document.querySelector('.user-btn');
+  const popup = document.getElementById('account-popup');
+  const content = document.getElementById('account-content');
+
+  if (accountBtn && popup && content) {
+    accountBtn.addEventListener('click', () => {
+      popup.classList.toggle('hidden');
+    });
+
+    window.addEventListener('click', (e) => {
+      if (!popup.contains(e.target) && !accountBtn.contains(e.target)) {
+        popup.classList.add('hidden');
+      }
+    });
+
+    onAuthStateChanged(auth, user => {
+      if (user) {
+        content.innerHTML = `
+          <p>Olá, ${user.email}</p>
+          <a href="#" id="logout-btn">Logout</a>
+        `;
+        setTimeout(() => {
+          const logoutBtn = document.getElementById('logout-btn');
+          if (logoutBtn) {
+            logoutBtn.addEventListener('click', async () => {
+              await signOut(auth);
+              alert("Sessão terminada");
+              location.reload();
+            });
+          }
+        }, 0);
+      } else {
+        content.innerHTML = `
+          <a href="login.html">Login</a>
+          <a href="create.html">Criar conta</a>
+        `;
+      }
+    });
+  }
+
+  //cache caso o user saia para a movie-list
+
+   const listLink = document.querySelector('.base-list');
+        listLink.addEventListener('click', function(){
+          localStorage.clear();
+          const Sort = 'popularity.desc&vote_count.gte=200';
+
+          localStorage.setItem('CurrentURL', discover_movies + '&sort_by=' + Sort);      
+          localStorage.setItem('id', movieID);
+          localStorage.setItem('genreIndex', '1');
+      })  
+    
+  
 });
 
 async function loadUserPlaylists(user) {

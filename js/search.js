@@ -1,4 +1,5 @@
 import { searchMovie, searchSerie, movieID, serieID, discover_movies } from "./api.js";
+import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.7.1/firebase-auth.js";
 
 const urlParams = new URLSearchParams(window.location.search);
 const search = urlParams.get('search');
@@ -25,6 +26,8 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         }
     });
+
+
 });
 
 
