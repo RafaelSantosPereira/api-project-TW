@@ -280,6 +280,18 @@ iframe {
 .search-btn:hover {
     opacity: 1;
 }
+.addBtnVariant {
+    border-radius: var(--radius-8);
+    transition: var(--transition-short);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px;
+    background-color: var(--primary);
+}
+.addBtnVariant:hover{
+    background-color: var(--primary-variant);
+}
 
 /* ==========================================================================
    SIDEBAR
@@ -1470,9 +1482,8 @@ nav.side-bar ~ .list-box .footer {
 
 .lang-btn:hover,
 .lang-btn:focus-visible {
-    background: rgba(40, 40, 50, 0.95);
-    border-color: rgba(255, 255, 255, 0.35);
-    color: var(--white);
+    border-color: var(--primary-variant);
+    color: var(--primary-variant);
     outline: none;
 }
 

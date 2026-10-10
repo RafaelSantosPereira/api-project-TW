@@ -271,8 +271,8 @@
 
 .genre-toggle-btn:hover,
 .genre-toggle-btn.active {
-    border-color: var(--primary);
-    color: var(--primary);
+    border-color: var(--primary-variant);
+    color: var(--primary-variant);
 }
 
 .genre-toggle-btn i {
