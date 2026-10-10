@@ -379,9 +379,8 @@ button{
 
 .lang-btn:hover,
 .lang-btn:focus-visible {
-    background: rgba(40, 40, 50, 0.95);
-    border-color: rgba(255, 255, 255, 0.35);
-    color: var(--white);
+    border-color: var(--primary-variant);
+    color: var(--primary-variant);
     outline: none;
 }
 

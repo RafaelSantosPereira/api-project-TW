@@ -782,26 +782,48 @@ function initDetailModals() {
   }
 
   const formAddToPlaylist = document.getElementById('formAddToPlaylist');
+  const btnAdd = document.getElementById("btnAddTo");
+
   const handleAddSubmit = async (event) => {
-    event.preventDefault();
-    const success = await addNew(currentId, currentIdType);
-    if (success) {
-      closeModals();
+    if (event) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+    const submitBtn = document.getElementById("btnAddTo");
+    if (submitBtn) {
+      submitBtn.disabled = true;
+      submitBtn.classList.add('is-loading');
+    }
+    try {
+      const success = await addNew(currentId, currentIdType);
+      if (success) {
+        closeModals();
+      }
+    } finally {
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.classList.remove('is-loading');
+      }
     }
   };
 
   if (formAddToPlaylist) {
     formAddToPlaylist.addEventListener('submit', handleAddSubmit);
-  } else {
-    const btnAdd = document.getElementById("btnAddTo");
-    if (btnAdd) btnAdd.addEventListener("click", handleAddSubmit);
+  }
+  if (btnAdd) {
+    btnAdd.addEventListener("click", (e) => {
+      e.stopPropagation();
+      if (!formAddToPlaylist) {
+        handleAddSubmit(e);
+      }
+    });
   }
 }
 
-// Global click event delegation for .addBtn
+// Global click event delegation for .addBtn (only opens playlist modal from movie content)
 document.addEventListener('click', (e) => {
   const addBtn = e.target.closest('.addBtn');
-  if (addBtn) {
+  if (addBtn && !addBtn.closest('#modalAddPlaylist') && addBtn.id !== 'btnAddTo') {
     e.preventDefault();
     e.stopPropagation();
     handleOpenPlaylistModal();

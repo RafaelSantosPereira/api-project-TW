@@ -34,12 +34,23 @@ nav.side-bar ~ .list-box .filters {
     flex-shrink: 0;
 }
 
+.filters {
+    padding-top: 20px;
+    gap: 20px;
+    margin-bottom: 20px;
+} 
+
+.filters .select {
+    margin: 0;
+    height: 40px;
+    background-position-y: center;
+}
+
 /* Playlist Selector Box & Delete Playlist Button */
 .playlist-selector-box {
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    margin: 10px 20px 20px 1px;
 }
 
 .playlist-selector-box .select {
@@ -205,6 +216,10 @@ nav.side-bar ~ .list-box .filters {
     font-size: 3rem;
     color: var(--primary);
     line-height: 1;
+}
+
+.addBtn {
+    margin: 0;
 }
 
 .empty-state-title {
